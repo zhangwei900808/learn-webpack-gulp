@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>登录</title>
+</head>
+
+<body>
+  <!--获取当前webpack下的include.header文件-->
+  <%=htmlWebpackPlugin.options.include.header %>
+  用户名：
+  <input type="text" name="name" value="" id="txtUserLogin"> 密码：
+  <input type="password" name="password" value="" id="txtUserPwd">
+  <button type="button" name="button" id="cmdLogin">登录</button>
+
+  <section id="root"></section>
+  <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+</body>
+
+</html>

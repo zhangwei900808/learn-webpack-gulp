@@ -1,0 +1,118 @@
+*{
+    margin:0;
+    padding:0;
+}
+//变量
+$awbeci :   #123456;
+@mixin align($align){
+    text-align: $align;
+}
+
+$title-font-size:48px;
+$title-font-color:#666;
+
+$gray-border:1px solid gray;
+
+$xs-width:480px;
+$sm-width:750px;
+$md-width:970px;
+$lg-width:1200px;
+
+$xs:'screen and (min-width:$xs-width)';
+$sm:'screen and (min-width:$sm-width)';
+$md:'screen and (min-width:$md-width)';
+$lg:'screen and (min-width:$lg-width)';
+//函数
+@mixin media-xs(){
+    $title-font-color:blue;
+    $title-font-size:46px;
+    @media #{$xs}{
+        h1:first-child{
+            color:$title-font-color;
+            font-size:$title-font-size;
+        }
+    }
+}
+
+//数组
+$screen-width:($xs-width,$sm-width,$md-width,$lg-width);
+$screen:($xs,$sm,$md,$lg);
+
+//条件语句
+@mixin container{
+    @for $i from 1 through length($screen){
+        @media #{nth($screen,$i)}{
+            .container{
+                width:nth($screen-width,$i)-18px;
+                margin:0 auto;
+            }
+        }
+    }
+}
+//函数
+@function getxs(){
+    $res :();
+    @for $i from 1 through 12{
+        //$res:".col-xs-#{$i},#{$res}";
+        //拼接字符串
+        $res:append($res ,".col-xs-#{$i}" , comma );
+    }
+    @return $res;
+}
+
+
+#{getxs()}{
+    min-height: 1px;
+    padding:0 15px;
+}
+
+
+@for $i from 1 through 12{
+    .col-xs-#{$i}{
+        float:left;
+        width:100%*($i/12);
+        border:1px solid red;
+    }
+
+    .col-xs-offset-#{$i}{
+        margin-left:100%*($i/12);
+    }
+}
+.table-border{
+  border:1px solid red;
+}
+//集合
+$table:(
+  "thead":("tr","th"),
+  "tbody":("tr","td"),
+  "tfoot":("tr","td")
+);
+
+//把集合拼接成字符串函数
+@function implode($list,$spliter){
+  $result:"";
+  @each $item in $list{
+    @if $result != ""
+    {
+      $result:"#{$result}#{$spliter}";
+    }
+    $result:"#{$result}#{$item}";
+  }
+  @return $result;
+}
+
+//循环取集合里面的数据
+@each $key,$value in $table{
+  .table>#{$key}>#{implode($value,">")}{
+    @extend .table-border;
+  }
+}
+
+$table-hover-gray:();
+@each $key,$value in $table{
+  $table-hover-gray:append($table-hover-gray,".table-hover-gray>#{$key}>#{nth($value,1)}:hover",comma);
+}
+
+#{$table-hover-gray}{
+  background: #ddd;
+}

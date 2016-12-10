@@ -1,0 +1,41 @@
+@import "./common/global";
+*{
+        box-sizing: border-box;
+}
+/*@media #{$xs}{
+        .container h1{
+                color:red;
+        }
+}*/
+@include container;
+h1{
+        color:$awbeci;
+}
+
+body{
+        div{
+                 @include align(center);
+                 h1{
+                         font-size: $title-font-size/2;
+                         color:lighten($title-font-color, 50%);
+                 }
+                 h1:first-child{
+                        color:$title-font-color;
+                        font-size:$title-font-size;
+                 }
+                 @include media-xs;
+        }
+        .search{
+                input{
+                        width:60%;
+                        height:40px;
+                        border:$gray-border;
+                }
+                button{
+                         width:50px;
+                        height:40px;
+                        border:$gray-border;
+                }
+                
+        }
+}
